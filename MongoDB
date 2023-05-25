@@ -197,7 +197,9 @@ Disable/comment below block block in config file on each server and start servic
 #
 #replication:
 #  replSetName: "configReplSet"
+
 login to mongo with localhost add/create  user with role root  and required users if any..
+
 #mongo --host localhost --port 27018
 use admin 
 db.createUser(
