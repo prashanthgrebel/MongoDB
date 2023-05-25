@@ -210,6 +210,31 @@ db.createUser(
   }
 );
 
+ Revert back changes made in config file and restart service on each host
+ test login 
+ # mongo --host shardsvr1 -u svradmin -p secureSvradmin --port 27018 --authenticationDatabase admin
+ == Repeat for all hosts ==
+ 
+ 
+  Once configReplSet port is started on all hosts login to any server and create cluster
+ cluster
+
+ # mongo --host shardsvr1 -u svradmin -p secureSvradmin --port 27018 --authenticationDatabase admin
+ 
+ use admin
+ 
+ 
+rs.initiate(
+   {
+      _id: "configReplSet",
+      version: 1,
+      members: [
+         { _id: 0, host : "configsvr1:27018" },
+         { _id: 1, host : "configsvr2:27018" },
+         { _id: 2, host : "configsvr3:27018" }
+      ]
+   }
+)
 
 
 
