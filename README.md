@@ -106,6 +106,7 @@ db.createUser({user: "prashanthg", pwd: "prashanthg123", roles: [ "readWriteAnyD
 Note: Updating User in Mongo is an update process i.e New data over-writes old data,
 therefore, Addition and deletion of particular access should be updated with all the access required and not just the data to be updated
 Command:
+```
 db.updateUser( "<User-Name>",
 {
 roles : [
@@ -129,29 +130,32 @@ authenticationRestrictions: [
 ]
 } )
 
-
-12. Update User Password
+```
+13. Update User Password
 Command:
+```
 db.changeUserPassword("<Username>", "<New-Password>")
 Example:
 db.changeUserPassword("prashanthg", "prashanthg123")
+```
 
-
-13. Delete User
+14. Delete User
 Command:
+```
 db.dropUser("<User-Name>")
 Example:
 db.dropUser("prashanthg")
 
-
-14. Execute mongo Commands from linux bash terminal
+```
+16. Execute mongo Commands from linux bash terminal
 Command:
+```
 mongo --host <Server-IP> --username <User-name> --password <Password> --authenticationDatabase <Authentication Database> --eval "printjson(<mongo-command>)"
 Example:
 mongo --host 192.168.39.20 --username prashanthg --password prashanthg@123 --authenticationDatabase admin --eval "printjson(db.serverStatus())"
 mongo --quiet --host 192.168.39.20 --username prashanthg --password prashanthg@123 --authenticationDatabase admin --eval "printjson(db.getMongo().getDBNames())"
 
-
+```
 ################################################################################### Mongo Clustering ########################################################################################################################3
 
 
@@ -159,18 +163,21 @@ Installation on centos 7
 
 Step 1
 [root@1-102 bin]# cat /etc/yum.repos.d/mongodb.repo
+```
 [MongoDB]
 name=MongoDB Repository
 baseurl=http://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/$basearch/
 gpgcheck=1
 enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
-[root@1-102 bin]# 
+```
+ 
 
 Step2
+```
 sudo yum install mongodb-org -y
 systemctl start mongod.service
-
+```
 
 
 Replication setup:
@@ -179,9 +186,9 @@ Replication setup:
      Replica sets are basically multiple mongod processes running on multiple servers that maintain the same data set. The replica set can have a minimum of three nodes. 
      These multiple nodes in a replica set play different roles and all together forming one replica set.
      Roles in the replica set
-        Primary
-        Secondary
-        Arbiter
+       1. Primary
+       2. Secondary
+       3. Arbiter
 
 >> Primary node: It is the master server of the replica set and all the read and write operations will be performed on it.
 
@@ -197,7 +204,7 @@ Replication setup:
 Replication setup
 Disable/comment below block block in config file on each server and start service
 
-
+```
 #security:
 #  keyFile: /etc/mongo/jdmongo.key
 #  authorization: enabled
@@ -207,9 +214,9 @@ Disable/comment below block block in config file on each server and start servic
 #
 #replication:
 #  replSetName: "configReplSet"
-
+```
 login to mongo with localhost add/create  user with role root  and required users if any..
-
+```
 #mongo --host localhost --port 27018
 use admin 
 db.createUser(
@@ -219,16 +226,20 @@ db.createUser(
 	roles: [ { role: 'root', db: 'admin' } ]
   }
 );
+```
 
  Revert back changes made in config file and restart service on each host
  test login 
+ ```
  # mongo --host shardsvr1 -u svradmin -p secureSvradmin --port 27018 --authenticationDatabase admin
+```
  == Repeat for all hosts ==
  
  
   Once configReplSet port is started on all hosts login to any server and create cluster
- cluster
-
+  
+* cluster
+```
  # mongo --host shardsvr1 -u svradmin -p secureSvradmin --port 27018 --authenticationDatabase admin
  
  use admin
@@ -245,5 +256,5 @@ rs.initiate(
       ]
    }
 )
-
+```
 ######################################################################################################################################
