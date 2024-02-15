@@ -31,42 +31,49 @@ use prashanthg
 ```
 4. List collections (tables) in database
 Command:
-use <database-Name>
+```use <database-Name>
 show collections or show tables
-
+```
 5. To confirm data is present in a table (After going inside database with "use" command)
 Command:
+```
 db.<table-Name>.find().pretty().limit(1)
 Example:
 db.prashanthg.find().pretty().limit(1)
-
+```
 6. To See total count of data inside mongo collection.
 Command:
+```
 db.<Table-Name>.count()
 Example:
 db.prashanthg.count()
-
-7. To List All the Users
+```
+8. To List All the Users
 Command:
+```
 db.getUsers()
-
-8. To List particular user
+```
+10. To List particular user
 Command:
+```
 db.getUser('<User-Name>')
-
-9. To List particular User with Restrictions
+```
+12. To List particular User with Restrictions
 Command:
+```
 db.getUser( "<User-Name>", { showAuthenticationRestrictions: true} )
-
-10. To Create User
+```
+14. To Create User
  i. Create User With Inbuilt Access (Accessible from All IPs)
 Command:
+```
 db.createUser({user: "<User-Name>", pwd: "<Password>", roles: [ "<Access-Type>" ]})
 Example:
 db.createUser({user: "prashanthg", pwd: "c0mp_ap!", roles: [ "readWriteAnyDatabase" ]})
-
+```
   ii. Create User with access on Particular Databases (Accessible from All IPs)
 Command:
+```
 db.createUser({user: "<User-Name>", pwd: "<Password>", roles:[{role: "<AccessType>", db: "<Database-Name>"}]})
 Example:
 Single Database
@@ -86,13 +93,14 @@ roles: [
 ]
 }
 )
-
+```
  iii. Create User With Access From limtited Servers (Accessible only from servers mentioned in Client Source)
 Command:
+```
 db.createUser({user: "<User Name>", pwd: "<Password>", roles: [ "readWriteAnyDatabase" ], authenticationRestrictions:[{ clientSource: ["<ip1>","<ip2>","<ip3>",.....,"<ipn>"]}]})
 Example:
 db.createUser({user: "prashanthg", pwd: "prashanthg123", roles: [ "readWriteAnyDatabase" ], authenticationRestrictions:[{ clientSource: ["192.168.39.71","192.168.39.72","192.168.17.222","192.168.17.223"]}]})
-
+```
 
 11. Update Users
 Note: Updating User in Mongo is an update process i.e New data over-writes old data,
